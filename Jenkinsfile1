@@ -1,0 +1,40 @@
+node
+{ 
+    def mavenHome = tool name: "maven3.8.1"
+    properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')), [$class: 'JobLocalConfiguration', changeReasonComment: ''], 
+    pipelineTriggers([pollSCM('* * * * *')])])
+   stage('checkoutcode')
+   {
+      git branch: 'devoplment', credentialsId: '44fa680a-ad4e-4f4f-bc28-acb43987e801', url: 'https://github.com/somuhd/maven-web-application.git' 
+   }
+   stage('build')
+   {
+       sh "${mavenHome}/bin/mvn clean package"
+   }
+   /*
+    stage('executeSonarQubeReport')
+   {
+       sh "${mavenHome}/bin/mvn sonar:sonar"
+   }
+   
+   stage('uploadArtifactsintoNexus')
+   {
+       sh "${mavenHome}/bin/mvn deploy"
+   }
+   
+   stage('deployTotomcatserver')
+   {
+       sshagent(['fd5856e9-29f8-4397-b772-962296b21002']) {
+    sh "scp -o  StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.234.37.225:/opt/apache-tomcat-9.0.68/webapps/"
+       }
+   }
+   */
+   stage('sendemailnotification')
+   {
+       emailext body: '''build success
+
+
+regards,
+somu''', subject: 'build report', to: 'somuhd16@gmail.com'
+   }
+}
