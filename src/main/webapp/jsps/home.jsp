@@ -9,7 +9,7 @@
 </head>
 </head>
 <body>
-<h1 align="center">DR Technologies Pvt Ltd. Ph No: +91-8553212251 Bengaluru,Karnataka,India.</h1>
+<h1 align="center">DR Technologies Pvt Ltd. Ph No: +91-8553212251 Hubli,Karnataka,India.</h1>
 <h1 align="center"> DR Technologies- Very Good Training center for DevOps with AWS,Python & AWS Solution Architect in Bangalore India.Teaching Real Time scnerios</h1>
 <hr>
 <br>
