@@ -3,3 +3,4 @@ echo "check the status"
 date 
 echo "hello"
 whoami
+hostname
