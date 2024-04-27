@@ -1,0 +1,21 @@
+node {
+    timestamps {
+}
+properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')), [$class: 'JobLocalConfiguration', changeReasonComment: ''], pipelineTriggers([pollSCM('* * * * * ')])])
+    stage('source code checkout')
+    {
+      checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/somuhd/maven-web-application.git']])
+    }
+    stage('to give permisiion')
+    {
+     sh "chmod 777 /var/jenkins_home/workspace/pipeline/Hello.sh"
+    }
+    stage('to execute the sript')
+    {
+     sh "/var/jenkins_home/workspace/pipeline/Hello.sh"
+    }
+    stage('slack notification')
+    {
+     slackSend channel: '#devops', message: 'Build succues.', teamDomain: 'sqeeztech', tokenCredentialId: 'slack'
+    }
+}
